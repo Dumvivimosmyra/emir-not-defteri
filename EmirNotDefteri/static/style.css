@@ -1,0 +1,1136 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #667eea;
+    --bg-secondary: #764ba2;
+    --text-primary: #333;
+    --text-secondary: #4a5568;
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-card-hover: rgba(255, 255, 255, 0.98);
+    --border-color: #e2e8f0;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] {
+    --bg-primary: #4c51bf;
+    --bg-secondary: #553c9a;
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --bg-card: rgba(26, 32, 44, 0.95);
+    --bg-card-hover: rgba(26, 32, 44, 0.98);
+    --border-color: #4a5568;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    min-height: 100vh;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+/* Header styles */
+.header {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 8px 16px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.header h1 {
+    color: var(--text-secondary);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 1;
+}
+.user-info > *:not(:first-child) {
+    margin-left: 8px;
+}
+
+.user-info span {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Auth form styles */
+.auth-form {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 400px;
+    margin: 50px auto;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.auth-form h1, .auth-form h2 {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--bg-primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input[type="color"] {
+    height: 50px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+/* Button styles */
+.btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+    height: 38px;
+    min-width: 38px;
+    font-size: 14px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+    background: #718096;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #4a5568;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: #e53e3e;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c53030;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/* Auth link styles */
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-secondary);
+}
+
+.auth-link a {
+    color: var(--bg-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* Error message styles */
+.error-message {
+    background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+    color: #c53030;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 2px solid #fc8181;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(197, 48, 48, 0.15);
+    animation: errorShake 0.5s ease-in-out;
+}
+
+.error-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.error-text {
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Checkbox styles */
+.checkbox-group {
+    margin-bottom: 25px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-weight: 500;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.checkbox-label:hover {
+    color: var(--text-primary);
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-card-hover);
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.checkbox-label:hover .checkmark {
+    border-color: var(--bg-primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    border-color: var(--bg-primary);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Success message styles */
+.success-message {
+    background: #c6f6d5;
+    color: #22543d;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #9ae6b4;
+}
+
+/* Notes container styles */
+.notes-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+}
+
+.add-note-section {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+    height: fit-content;
+    transition: all 0.3s ease;
+}
+
+.add-note-section h2 {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.note-form .btn-primary {
+    width: auto;
+    padding: 12px 24px;
+}
+
+.notes-list {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.notes-header h2 {
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.notes-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+    min-width: 200px;
+}
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-controls label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.sort-controls select {
+    padding: 6px 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+/* Note card styles */
+.note-card {
+    background: var(--bg-card-hover);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+    transform: scale(1);
+}
+
+.note-card:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-hover);
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.note-title-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.note-header h3 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.category-badge {
+    background: #667eea;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.note-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.note-date {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.note-content {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    margin-bottom: 15px;
+}
+
+.note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tag {
+    background: var(--bg-primary);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.no-notes {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 40px 20px;
+}
+
+/* Profile styles */
+.profile-info {
+    background: var(--bg-card-hover);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-field:last-child {
+    border-bottom: none;
+}
+
+.profile-field label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.profile-field span {
+    color: var(--text-primary);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-actions .btn {
+    flex: 1;
+}
+
+.form-actions .btn-secondary {
+    background: #718096;
+    color: white;
+}
+
+.form-actions .btn-secondary:hover {
+    background: #4a5568;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 8px;
+        padding: 6px 6px;
+    }
+    
+    .header h1 {
+        text-align: center;
+        margin-bottom: 0;
+    }
+    
+    .user-info {
+        gap: 6px;
+    }
+    
+    .notes-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .auth-form {
+        margin: 20px auto;
+        padding: 30px 20px;
+    }
+    
+    .note-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .note-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .notes-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .notes-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-form {
+        flex-direction: column;
+    }
+    
+    .search-input {
+        min-width: auto;
+    }
+}
+
+/* Dashboard styles */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.welcome-section {
+    margin-bottom: 30px;
+}
+
+.welcome-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.welcome-card h2 {
+    color: var(--text-primary);
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.welcome-card p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.welcome-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--bg-primary);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.recent-notes-section,
+.quick-actions-section {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.recent-notes-section h2,
+.quick-actions-section h2 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.latest-note-card {
+    background: var(--bg-card-hover);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.latest-note-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.no-notes-card {
+    background: var(--bg-card-hover);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    border: 2px dashed var(--border-color);
+}
+
+.no-notes-card p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.quick-action-card {
+    background: var(--bg-card-hover);
+    border-radius: 12px;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.quick-action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--bg-primary);
+}
+
+.quick-action-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.quick-action-card h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.quick-action-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Dashboard responsive design */
+@media (max-width: 768px) {
+    .dashboard-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .welcome-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .welcome-card {
+        padding: 20px;
+    }
+    
+    .welcome-card h2 {
+        font-size: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .todos-section {
+        margin-top: 20px;
+    }
+}
+
+/* Todo styles */
+.todos-section {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    margin-top: 30px;
+}
+
+.todos-section h2 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.todo-form {
+    margin-bottom: 20px;
+}
+
+.todo-input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.todo-input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease;
+}
+
+.todo-input:focus {
+    outline: none;
+    border-color: var(--bg-primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.todos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.todo-item {
+    background: var(--bg-card-hover);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-item:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.todo-item.completed {
+    opacity: 0.7;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.todo-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.todo-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-card-hover);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.todo-checkbox:hover {
+    border-color: var(--bg-primary);
+}
+
+.todo-checkbox.checked {
+    background: var(--bg-primary);
+    border-color: var(--bg-primary);
+}
+
+.todo-text {
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 500;
+    flex: 1;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+.todo-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.todo-date {
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.no-todos {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Todo responsive design */
+@media (max-width: 768px) {
+    .todo-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .todo-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .todo-input-group {
+        flex-direction: column;
+    }
+    
+    .todo-input {
+        width: 100%;
+    }
+}
+
+/* Weather widget styles */
+.weather-widget {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-card-hover);
+    padding: 0 12px;
+    border-radius: 15px;
+    border: 2px solid var(--bg-primary);
+    margin-right: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+    min-width: 120px;
+    max-width: 200px;
+    overflow: visible;
+    padding: 8px 18px;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0;
+    font-size: 13px;
+}
+
+.weather-widget:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    border-color: var(--bg-secondary);
+}
+
+.weather-emoji {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.weather-info {
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Weather widget responsive design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .header h1 {
+        text-align: center;
+        margin-bottom: 0;
+    }
+    
+    .user-info {
+        justify-content: center;
+        gap: 6px;
+    }
+    
+    .weather-widget {
+        margin-right: 0;
+        padding: 0 8px;
+        min-width: 90px;
+        max-width: 140px;
+        font-size: 11px;
+    }
+    
+    .weather-info {
+        font-size: 12px;
+    }
+    
+    .btn {
+        padding: 0 8px;
+        font-size: 12px;
+    }
+    .todo-form .btn-primary {
+        min-width: 50px;
+        max-width: 80px;
+        height: 32px;
+        font-size: 13px;
+        padding: 0 10px;
+    }
+} 
+
+/* Topbar sağ üstte sabit ve belirgin */
+.topbar {
+    position: absolute;
+    top: 32px;
+    right: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    padding: 8px 18px;
+}
+
+.dashboard-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+.recent-notes-section, .todos-section {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 440px;
+    background: var(--bg-card);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.welcome-card {
+    max-width: 1100px;
+    margin: 0 auto 40px auto;
+    background: var(--bg-card);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    padding: 40px 40px 30px 40px;
+    text-align: left;
+}
+
+.quick-actions-section {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+@media (max-width: 1100px) {
+    .dashboard-row {
+        flex-direction: column;
+        gap: 20px;
+        max-width: 100%;
+    }
+    .recent-notes-section, .todos-section {
+        max-width: 100%;
+    }
+    .welcome-card, .quick-actions-section {
+        max-width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .topbar {
+        position: static;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+        gap: 8px;
+        padding: 6px 10px;
+    }
+    .dashboard-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .recent-notes-section, .todos-section {
+        padding: 15px;
+    }
+    .welcome-card {
+        padding: 18px 8px 12px 8px;
+    }
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+} 

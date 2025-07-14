@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="{{ current_user.profile.get('theme', 'light') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Not Defteri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="topbar">
+        {% if weather %}
+        <div class="weather-widget">
+            <span class="weather-emoji">{{ weather.emoji }}</span>
+            <span class="weather-info">{{ weather.city }}, {{ weather.temperature }}°C</span>
+        </div>
+        {% endif %}
+        <a href="{{ url_for('toggle_theme') }}" class="btn btn-secondary" id="theme-toggle">
+            {% if current_user.profile.get('theme', 'light') == 'light' %}🌙{% else %}☀️{% endif %}
+        </a>
+    </div>
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <div class="welcome-card">
+                <h2>Hoş Geldin, {{ current_user.username }}! 👋</h2>
+                <p>Not defterinize hoş geldiniz. Düşüncelerinizi, fikirlerinizi ve önemli notlarınızı burada güvenle saklayabilirsiniz.</p>
+                <div class="welcome-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ total_notes }}</span>
+                        <span class="stat-label">Toplam Not</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ categories_count }}</span>
+                        <span class="stat-label">Kategori</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ total_todos }}</span>
+                        <span class="stat-label">Toplam Görev</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ completed_todos }}</span>
+                        <span class="stat-label">Tamamlanan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-row">
+            <div class="recent-notes-section">
+                <h2>En Son Eklenen Not</h2>
+                {% if latest_note %}
+                <div class="latest-note-card" style="border-left: 4px solid {{ latest_note.color }}">
+                    <div class="note-header">
+                        <div class="note-title-section">
+                            <h3>{{ latest_note.title }}</h3>
+                            <span class="category-badge" style="background-color: {{ latest_note.color }}">{{ latest_note.category }}</span>
+                        </div>
+                        <div class="note-actions">
+                            <span class="note-date">{{ latest_note.created_at[:16].replace('T', ' ') }}</span>
+                            <a href="{{ url_for('edit_note', note_id=latest_note.id) }}" class="btn btn-secondary btn-small">Düzenle</a>
+                        </div>
+                    </div>
+                    <div class="note-content">
+                        {{ latest_note.content[:200] }}{% if latest_note.content|length > 200 %}...{% endif %}
+                    </div>
+                    {% if latest_note.tags %}
+                    <div class="note-tags">
+                        {% for tag in latest_note.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="no-notes-card">
+                    <p>Henüz not eklenmemiş.</p>
+                    <a href="{{ url_for('notes') }}" class="btn btn-primary">İlk Notunuzu Ekleyin</a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="todos-section">
+                <h2>Yapılacaklar Listesi</h2>
+                <form method="POST" action="{{ url_for('add_todo') }}" class="todo-form">
+                    <div class="todo-input-group">
+                        <input type="text" name="task" placeholder="Yeni görev ekle..." required class="todo-input">
+                        <button type="submit" class="btn btn-primary btn-small">Ekle</button>
+                    </div>
+                </form>
+                <div class="todos-list">
+                    {% if todos %}
+                        {% for todo in todos %}
+                        <div class="todo-item {% if todo.completed %}completed{% endif %}">
+                            <div class="todo-content">
+                                <form method="POST" action="{{ url_for('toggle_todo', todo_id=todo.id) }}" style="display: inline;">
+                                    <button type="submit" class="todo-checkbox {% if todo.completed %}checked{% endif %}">
+                                        {% if todo.completed %}✓{% endif %}
+                                    </button>
+                                </form>
+                                <span class="todo-text">{{ todo.task }}</span>
+                            </div>
+                            <div class="todo-actions">
+                                <span class="todo-date">{{ todo.created_at[:16].replace('T', ' ') }}</span>
+                                <form method="POST" action="{{ url_for('delete_todo', todo_id=todo.id) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Bu görevi silmek istediğinizden emin misiniz?')">Sil</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-todos">Henüz görev eklenmemiş.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="quick-actions-section">
+            <h2>Hızlı İşlemler</h2>
+            <div class="quick-actions-grid">
+                <a href="{{ url_for('notes') }}" class="quick-action-card">
+                    <div class="quick-action-icon">📝</div>
+                    <h3>Notlarım</h3>
+                    <p>Tüm notlarınızı görüntüleyin ve yönetin</p>
+                </a>
+                <a href="{{ url_for('notes') }}" class="quick-action-card">
+                    <div class="quick-action-icon">➕</div>
+                    <h3>Yeni Not</h3>
+                    <p>Hızlıca yeni bir not ekleyin</p>
+                </a>
+                <a href="{{ url_for('profile') }}" class="quick-action-card">
+                    <div class="quick-action-icon">👤</div>
+                    <h3>Profil</h3>
+                    <p>Profil bilgilerinizi düzenleyin</p>
+                </a>
+                <a href="{{ url_for('change_password') }}" class="quick-action-card">
+                    <div class="quick-action-icon">🔒</div>
+                    <h3>Şifre Değiştir</h3>
+                    <p>Hesap güvenliğinizi artırın</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,43 @@
+{
+    "users": [
+        {
+            "id": "3aad6217-117f-44c2-a111-60f8e656f43f",
+            "username": "test_user",
+            "password_hash": "pbkdf2:sha256:600000$test_hash",
+            "email": "test@example.com",
+            "city": "Ankara",
+            "created_at": "2025-07-13T17:00:00.000000",
+            "profile": {
+                "display_name": "Test User",
+                "bio": "Not defteri kullanıcısı",
+                "theme": "light"
+            }
+        },
+        {
+            "id": "2117f649-46d5-4f5f-9401-acc4a1e86701",
+            "username": "myra",
+            "password_hash": "pbkdf2:sha256:600000$GstiQFZaAz9N93lR$12ac24a699b0ccb4cfc4d15708ef155649f3df235cdfaf0ff75fe62c141a556b",
+            "email": "",
+            "city": "Ankara",
+            "created_at": "2025-07-13T20:50:46.681678",
+            "profile": {
+                "display_name": "myra",
+                "bio": "",
+                "theme": "dark"
+            }
+        },
+        {
+            "id": "48c4b0f6-5173-48c6-9fc2-9f69106c772a",
+            "username": "baklava_adam",
+            "password_hash": "pbkdf2:sha256:600000$LFTFROjuOw9ylayr$bedfc0540b233dc8076cae88858c95286d9cbe72463ecc5757f4db176cb9f786",
+            "email": "",
+            "city": "İstanbul",
+            "created_at": "2025-07-13T23:51:57.111449",
+            "profile": {
+                "display_name": "baklava_adam",
+                "bio": "",
+                "theme": "dark"
+            }
+        }
+    ]
+}

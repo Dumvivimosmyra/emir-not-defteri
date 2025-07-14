@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="{{ current_user.profile.get('theme', 'light') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notlarım - Not Defteri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="user-info">
+                {% if weather %}
+                <div class="weather-widget">
+                    <span class="weather-emoji">{{ weather.emoji }}</span>
+                    <span class="weather-info">{{ weather.city }}, {{ weather.temperature }}°C</span>
+                </div>
+                {% endif %}
+                <a href="{{ url_for('profile') }}" class="btn btn-secondary">Profil</a>
+                <a href="{{ url_for('change_password') }}" class="btn btn-secondary">Şifre Değiştir</a>
+                <a href="{{ url_for('toggle_theme') }}" class="btn btn-secondary" id="theme-toggle">
+                    {% if current_user.profile.get('theme', 'light') == 'light' %}🌙{% else %}☀️{% endif %}
+                </a>
+                <a href="{{ url_for('logout') }}" class="btn btn-secondary">Çıkış Yap</a>
+            </div>
+            <h1>Notlarım</h1>
+        </header>
+
+        <div class="notes-container">
+            <div class="add-note-section">
+                <h2>Yeni Not Ekle</h2>
+                <form method="POST" action="{{ url_for('add_note') }}" class="note-form">
+                    <div class="form-group">
+                        <label for="title">Başlık:</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Kategori:</label>
+                        <select id="category" name="category" required>
+                            <option value="Genel">Genel</option>
+                            <option value="İş">İş</option>
+                            <option value="Kişisel">Kişisel</option>
+                            <option value="Alışveriş">Alışveriş</option>
+                            <option value="Sağlık">Sağlık</option>
+                            <option value="Eğitim">Eğitim</option>
+                            <option value="Seyahat">Seyahat</option>
+                            <option value="Fikirler">Fikirler</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Renk:</label>
+                        <input type="color" id="color" name="color" value="#667eea">
+                    </div>
+                    <div class="form-group">
+                        <label for="tags">Etiketler (virgülle ayırın):</label>
+                        <input type="text" id="tags" name="tags" placeholder="örnek: önemli, iş, acil">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">İçerik:</label>
+                        <textarea id="content" name="content" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Not Ekle</button>
+                </form>
+            </div>
+
+            <div class="notes-list">
+                <div class="notes-header">
+                    <h2>Notlarım</h2>
+                    <div class="notes-controls">
+                        <form method="GET" action="{{ url_for('notes') }}" class="search-form">
+                            <input type="text" name="search" value="{{ search_query }}" placeholder="Notlarda ara..." class="search-input">
+                            <button type="submit" class="btn btn-secondary">Ara</button>
+                        </form>
+                        <div class="sort-controls">
+                            <label for="sort">Sırala:</label>
+                            <select id="sort" onchange="window.location.href='{{ url_for('notes') }}?sort=' + this.value + '&search={{ search_query }}'">
+                                <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Yeni → Eski</option>
+                                <option value="oldest" {% if sort_by == 'oldest' %}selected{% endif %}>Eski → Yeni</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if notes %}
+                    {% for note in notes %}
+                    <div class="note-card" style="border-left: 4px solid {{ note.color }}">
+                        <div class="note-header">
+                            <div class="note-title-section">
+                                <h3>{{ note.title }}</h3>
+                                <span class="category-badge" style="background-color: {{ note.color }}">{{ note.category }}</span>
+                            </div>
+                            <div class="note-actions">
+                                <span class="note-date">{{ note.created_at[:16].replace('T', ' ') }}</span>
+                                <a href="{{ url_for('edit_note', note_id=note.id) }}" class="btn btn-secondary btn-small">Düzenle</a>
+                                <form method="POST" action="{{ url_for('delete_note', note_id=note.id) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Bu notu silmek istediğinizden emin misiniz?')">Sil</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="note-content">
+                            {{ note.content }}
+                        </div>
+                        {% if note.tags %}
+                        <div class="note-tags">
+                            {% for tag in note.tags %}
+                            <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-notes">
+                        {% if search_query %}
+                            "{{ search_query }}" için sonuç bulunamadı.
+                        {% else %}
+                            Henüz not eklenmemiş. İlk notunuzu ekleyin!
+                        {% endif %}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

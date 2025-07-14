@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - Not Defteri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-form">
+            <h1>Giriş Yap</h1>
+            {% if error %}
+            <div class="error-message">
+                <div class="error-icon">⚠️</div>
+                <div class="error-text">{{ error }}</div>
+            </div>
+            {% endif %}
+            <form method="POST" action="{{ url_for('login') }}">
+                <div class="form-group">
+                    <label for="username">Kullanıcı Adı:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Şifre:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span class="checkmark"></span>
+                        Beni Hatırla
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Giriş Yap</button>
+            </form>
+            <p class="auth-link">
+                Hesabınız yok mu? <a href="{{ url_for('register') }}">Kayıt Ol</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html> 

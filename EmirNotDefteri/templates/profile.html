@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="{{ current_user.profile.get('theme', 'light') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Not Defteri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Profil</h1>
+            <div class="user-info">
+                <span>Hoş geldin, {{ current_user.username }}!</span>
+                <a href="{{ url_for('notes') }}" class="btn btn-secondary">Notlara Dön</a>
+                <a href="{{ url_for('change_password') }}" class="btn btn-secondary">Şifre Değiştir</a>
+                <a href="{{ url_for('toggle_theme') }}" class="btn btn-secondary" id="theme-toggle">
+                    {% if current_user.profile.get('theme', 'light') == 'light' %}🌙{% else %}☀️{% endif %}
+                </a>
+                <a href="{{ url_for('logout') }}" class="btn btn-secondary">Çıkış Yap</a>
+            </div>
+        </header>
+
+        <div class="auth-form">
+            <h2>Profil Bilgileri</h2>
+            
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="{% if 'başarıyla' in message %}success-message{% else %}error-message{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="profile-info">
+                <div class="profile-field">
+                    <label>Kullanıcı Adı:</label>
+                    <span>{{ user.username }}</span>
+                </div>
+                <div class="profile-field">
+                    <label>E-posta:</label>
+                    <span>{{ user.email or 'Belirtilmemiş' }}</span>
+                </div>
+                <div class="profile-field">
+                    <label>Hesap Oluşturulma:</label>
+                    <span>{{ user.created_at[:10] if user.created_at else 'Bilinmiyor' }}</span>
+                </div>
+                <div class="profile-field">
+                    <label>Şehir:</label>
+                    <span>{{ user.city or 'Ankara' }}</span>
+                </div>
+            </div>
+            
+            <form method="POST" action="{{ url_for('update_profile') }}" class="profile-form">
+                <div class="form-group">
+                    <label for="display_name">Görünen Ad:</label>
+                    <input type="text" id="display_name" name="display_name" value="{{ user.profile.get('display_name', '') }}">
+                </div>
+                <div class="form-group">
+                    <label for="bio">Hakkımda:</label>
+                    <textarea id="bio" name="bio" rows="3">{{ user.profile.get('bio', '') }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="theme">Tema:</label>
+                    <select id="theme" name="theme">
+                        <option value="light" {% if user.profile.get('theme', 'light') == 'light' %}selected{% endif %}>Açık</option>
+                        <option value="dark" {% if user.profile.get('theme') == 'dark' %}selected{% endif %}>Koyu</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="city">Şehir:</label>
+                    <select id="city" name="city" required>
+                        <option value="Adana" {% if user.city == 'Adana' %}selected{% endif %}>Adana</option>
+                        <option value="Adıyaman" {% if user.city == 'Adıyaman' %}selected{% endif %}>Adıyaman</option>
+                        <option value="Afyonkarahisar" {% if user.city == 'Afyonkarahisar' %}selected{% endif %}>Afyonkarahisar</option>
+                        <option value="Ağrı" {% if user.city == 'Ağrı' %}selected{% endif %}>Ağrı</option>
+                        <option value="Amasya" {% if user.city == 'Amasya' %}selected{% endif %}>Amasya</option>
+                        <option value="Ankara" {% if user.city == 'Ankara' or not user.city %}selected{% endif %}>Ankara</option>
+                        <option value="Antalya" {% if user.city == 'Antalya' %}selected{% endif %}>Antalya</option>
+                        <option value="Artvin" {% if user.city == 'Artvin' %}selected{% endif %}>Artvin</option>
+                        <option value="Aydın" {% if user.city == 'Aydın' %}selected{% endif %}>Aydın</option>
+                        <option value="Balıkesir" {% if user.city == 'Balıkesir' %}selected{% endif %}>Balıkesir</option>
+                        <option value="Bilecik" {% if user.city == 'Bilecik' %}selected{% endif %}>Bilecik</option>
+                        <option value="Bingöl" {% if user.city == 'Bingöl' %}selected{% endif %}>Bingöl</option>
+                        <option value="Bitlis" {% if user.city == 'Bitlis' %}selected{% endif %}>Bitlis</option>
+                        <option value="Bolu" {% if user.city == 'Bolu' %}selected{% endif %}>Bolu</option>
+                        <option value="Burdur" {% if user.city == 'Burdur' %}selected{% endif %}>Burdur</option>
+                        <option value="Bursa" {% if user.city == 'Bursa' %}selected{% endif %}>Bursa</option>
+                        <option value="Çanakkale" {% if user.city == 'Çanakkale' %}selected{% endif %}>Çanakkale</option>
+                        <option value="Çankırı" {% if user.city == 'Çankırı' %}selected{% endif %}>Çankırı</option>
+                        <option value="Çorum" {% if user.city == 'Çorum' %}selected{% endif %}>Çorum</option>
+                        <option value="Denizli" {% if user.city == 'Denizli' %}selected{% endif %}>Denizli</option>
+                        <option value="Diyarbakır" {% if user.city == 'Diyarbakır' %}selected{% endif %}>Diyarbakır</option>
+                        <option value="Edirne" {% if user.city == 'Edirne' %}selected{% endif %}>Edirne</option>
+                        <option value="Elazığ" {% if user.city == 'Elazığ' %}selected{% endif %}>Elazığ</option>
+                        <option value="Erzincan" {% if user.city == 'Erzincan' %}selected{% endif %}>Erzincan</option>
+                        <option value="Erzurum" {% if user.city == 'Erzurum' %}selected{% endif %}>Erzurum</option>
+                        <option value="Eskişehir" {% if user.city == 'Eskişehir' %}selected{% endif %}>Eskişehir</option>
+                        <option value="Gaziantep" {% if user.city == 'Gaziantep' %}selected{% endif %}>Gaziantep</option>
+                        <option value="Giresun" {% if user.city == 'Giresun' %}selected{% endif %}>Giresun</option>
+                        <option value="Gümüşhane" {% if user.city == 'Gümüşhane' %}selected{% endif %}>Gümüşhane</option>
+                        <option value="Hakkari" {% if user.city == 'Hakkari' %}selected{% endif %}>Hakkari</option>
+                        <option value="Hatay" {% if user.city == 'Hatay' %}selected{% endif %}>Hatay</option>
+                        <option value="Isparta" {% if user.city == 'Isparta' %}selected{% endif %}>Isparta</option>
+                        <option value="Mersin" {% if user.city == 'Mersin' %}selected{% endif %}>Mersin</option>
+                        <option value="İstanbul" {% if user.city == 'İstanbul' %}selected{% endif %}>İstanbul</option>
+                        <option value="İzmir" {% if user.city == 'İzmir' %}selected{% endif %}>İzmir</option>
+                        <option value="Kars" {% if user.city == 'Kars' %}selected{% endif %}>Kars</option>
+                        <option value="Kastamonu" {% if user.city == 'Kastamonu' %}selected{% endif %}>Kastamonu</option>
+                        <option value="Kayseri" {% if user.city == 'Kayseri' %}selected{% endif %}>Kayseri</option>
+                        <option value="Kırklareli" {% if user.city == 'Kırklareli' %}selected{% endif %}>Kırklareli</option>
+                        <option value="Kırşehir" {% if user.city == 'Kırşehir' %}selected{% endif %}>Kırşehir</option>
+                        <option value="Kocaeli" {% if user.city == 'Kocaeli' %}selected{% endif %}>Kocaeli</option>
+                        <option value="Konya" {% if user.city == 'Konya' %}selected{% endif %}>Konya</option>
+                        <option value="Kütahya" {% if user.city == 'Kütahya' %}selected{% endif %}>Kütahya</option>
+                        <option value="Malatya" {% if user.city == 'Malatya' %}selected{% endif %}>Malatya</option>
+                        <option value="Manisa" {% if user.city == 'Manisa' %}selected{% endif %}>Manisa</option>
+                        <option value="Kahramanmaraş" {% if user.city == 'Kahramanmaraş' %}selected{% endif %}>Kahramanmaraş</option>
+                        <option value="Mardin" {% if user.city == 'Mardin' %}selected{% endif %}>Mardin</option>
+                        <option value="Muğla" {% if user.city == 'Muğla' %}selected{% endif %}>Muğla</option>
+                        <option value="Muş" {% if user.city == 'Muş' %}selected{% endif %}>Muş</option>
+                        <option value="Nevşehir" {% if user.city == 'Nevşehir' %}selected{% endif %}>Nevşehir</option>
+                        <option value="Niğde" {% if user.city == 'Niğde' %}selected{% endif %}>Niğde</option>
+                        <option value="Ordu" {% if user.city == 'Ordu' %}selected{% endif %}>Ordu</option>
+                        <option value="Rize" {% if user.city == 'Rize' %}selected{% endif %}>Rize</option>
+                        <option value="Sakarya" {% if user.city == 'Sakarya' %}selected{% endif %}>Sakarya</option>
+                        <option value="Samsun" {% if user.city == 'Samsun' %}selected{% endif %}>Samsun</option>
+                        <option value="Siirt" {% if user.city == 'Siirt' %}selected{% endif %}>Siirt</option>
+                        <option value="Sinop" {% if user.city == 'Sinop' %}selected{% endif %}>Sinop</option>
+                        <option value="Sivas" {% if user.city == 'Sivas' %}selected{% endif %}>Sivas</option>
+                        <option value="Tekirdağ" {% if user.city == 'Tekirdağ' %}selected{% endif %}>Tekirdağ</option>
+                        <option value="Tokat" {% if user.city == 'Tokat' %}selected{% endif %}>Tokat</option>
+                        <option value="Trabzon" {% if user.city == 'Trabzon' %}selected{% endif %}>Trabzon</option>
+                        <option value="Tunceli" {% if user.city == 'Tunceli' %}selected{% endif %}>Tunceli</option>
+                        <option value="Şanlıurfa" {% if user.city == 'Şanlıurfa' %}selected{% endif %}>Şanlıurfa</option>
+                        <option value="Uşak" {% if user.city == 'Uşak' %}selected{% endif %}>Uşak</option>
+                        <option value="Van" {% if user.city == 'Van' %}selected{% endif %}>Van</option>
+                        <option value="Yozgat" {% if user.city == 'Yozgat' %}selected{% endif %}>Yozgat</option>
+                        <option value="Zonguldak" {% if user.city == 'Zonguldak' %}selected{% endif %}>Zonguldak</option>
+                        <option value="Aksaray" {% if user.city == 'Aksaray' %}selected{% endif %}>Aksaray</option>
+                        <option value="Bayburt" {% if user.city == 'Bayburt' %}selected{% endif %}>Bayburt</option>
+                        <option value="Karaman" {% if user.city == 'Karaman' %}selected{% endif %}>Karaman</option>
+                        <option value="Kırıkkale" {% if user.city == 'Kırıkkale' %}selected{% endif %}>Kırıkkale</option>
+                        <option value="Batman" {% if user.city == 'Batman' %}selected{% endif %}>Batman</option>
+                        <option value="Şırnak" {% if user.city == 'Şırnak' %}selected{% endif %}>Şırnak</option>
+                        <option value="Bartın" {% if user.city == 'Bartın' %}selected{% endif %}>Bartın</option>
+                        <option value="Ardahan" {% if user.city == 'Ardahan' %}selected{% endif %}>Ardahan</option>
+                        <option value="Iğdır" {% if user.city == 'Iğdır' %}selected{% endif %}>Iğdır</option>
+                        <option value="Yalova" {% if user.city == 'Yalova' %}selected{% endif %}>Yalova</option>
+                        <option value="Karabük" {% if user.city == 'Karabük' %}selected{% endif %}>Karabük</option>
+                        <option value="Kilis" {% if user.city == 'Kilis' %}selected{% endif %}>Kilis</option>
+                        <option value="Osmaniye" {% if user.city == 'Osmaniye' %}selected{% endif %}>Osmaniye</option>
+                        <option value="Düzce" {% if user.city == 'Düzce' %}selected{% endif %}>Düzce</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Profili Güncelle</button>
+                    <a href="{{ url_for('notes') }}" class="btn btn-secondary">İptal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 

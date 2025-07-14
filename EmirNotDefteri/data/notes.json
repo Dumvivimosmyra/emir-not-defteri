@@ -1,0 +1,32 @@
+{
+    "notes": [
+        {
+            "id": "100357fb-9fe0-4a0f-b656-80e8018ec7bf",
+            "user_id": "3aad6217-117f-44c2-a111-60f8e656f43f",
+            "title": "Bugün 13.07.2025",
+            "content": "Bugün yazılma dair bir şeyler öğrendim",
+            "created_at": "2025-07-13T17:54:18.204177"
+        },
+        {
+            "id": "bf3176f2-775e-48cf-a494-c9e00b589d38",
+            "user_id": "3aad6217-117f-44c2-a111-60f8e656f43f",
+            "title": "Harika ilerliyorum",
+            "content": "wow",
+            "category": "Genel",
+            "color": "#000000",
+            "created_at": "2025-07-13T20:30:53.487440"
+        },
+        {
+            "id": "3f92212e-609d-4e0e-b50c-9db1a6cce61f",
+            "user_id": "48c4b0f6-5173-48c6-9fc2-9f69106c772a",
+            "title": "Bugün: 14.07.2025",
+            "content": "Bugün yazılımda kendime bir web uygulaması yaptım. Belki tam olarak ben yapmadım ama biraz da olsa öğrendim. ",
+            "category": "Genel",
+            "color": "#4f356e",
+            "tags": [
+                "KDO017"
+            ],
+            "created_at": "2025-07-14T00:39:00.331455"
+        }
+    ]
+}
